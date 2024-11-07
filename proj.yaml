@@ -1,0 +1,52 @@
+project:
+  name: MyProject
+  version: 1.0.0
+  description: A sample project demonstrating YAML configuration.
+  author: Saanvi
+
+# Database configuration
+database:
+  host: localhost
+  port: 5432
+  database_name: myproject_db
+  username: admin
+  password: admin_password
+
+settings:
+  debug: true
+  log_level: info
+  max_connections: 100
+
+modules:
+  auth:
+    enable_oauth: true
+    oauth_providers:
+      - google
+      - github
+      - facebook
+  notifications:
+    enable_email: true
+    email_provider: smtp
+    smtp_settings:
+      server: smtp.example.com
+      port: 587
+      use_tls: true
+      username: notifications@example.com
+      password: smtp_password
+
+team:
+  - name: Saanvi
+    role: Project Manager
+    contact: saanvi@example.com
+  - name: Rahul
+    role: Lead Developer
+    contact: rahul@example.com
+
+deployment:
+  provider: AWS
+  region: stockholm
+  instance_type: t3.micro
+  auto_scaling:
+    enabled: true
+    min_instances: 1
+    max_instances: 5
