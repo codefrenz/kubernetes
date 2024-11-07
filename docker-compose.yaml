@@ -1,0 +1,43 @@
+version: '3.8'  # Docker Compose version
+
+services:
+  # Web Application Service
+  web:
+    image: python:3.9  # Base image
+    container_name: web_app
+    working_dir: /app
+    volumes:
+      - ./web:/app  # Mount local web app code to the container
+    ports:
+      - "5000:5000"  # Expose web app on port 5000
+    command: python app.py  # Start command for the web app
+    depends_on:
+      - db
+      - redis
+
+  # Database Service
+  db:
+    image: postgres:13  # Use official PostgreSQL image
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"  # Expose PostgreSQL on default port
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Persist database data
+
+  # Redis Service
+  redis:
+    image: redis:6  # Use official Redis image
+    container_name: redis_cache
+    ports:
+      - "6379:6379"  # Expose Redis on default port
+    volumes:
+      - redis_data:/data  # Persist Redis data
+
+# Define Docker volumes for persistent storage
+volumes:
+  db_data:
+  redis_data:
